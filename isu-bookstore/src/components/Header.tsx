@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Menu, Search, ShoppingCart, User } from "lucide-react";
 
 interface HeaderProps {
@@ -51,9 +52,13 @@ export function Header({
           </div>
 
           <div className="flex items-center gap-2">
-            <button className="rounded-lg p-2.5 transition-all duration-200 hover:scale-105 hover:bg-[#9a0c24]">
+            <Link
+              href="/account"
+              className="rounded-lg p-2.5 transition-all duration-200 hover:scale-105 hover:bg-[#9a0c24]"
+              aria-label="Account"
+            >
               <User className="h-6 w-6" />
-            </button>
+            </Link>
             <button
               onClick={onCartClick}
               className="relative rounded-lg p-2.5 transition-all duration-200 hover:scale-105 hover:bg-[#9a0c24]"
