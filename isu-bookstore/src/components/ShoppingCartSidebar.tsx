@@ -80,16 +80,16 @@ export function ShoppingCartSidebar({
                     <div className="flex items-center gap-3">
                       <button
                         onClick={() => onUpdateQuantity(item.product.id, -1)}
-                        className="rounded-lg bg-gray-200 p-1.5 transition-all duration-200 hover:scale-110 hover:bg-gray-300 active:scale-95"
+                        className="rounded-lg bg-[#C8102E] p-1.5 text-black transition-all duration-200 hover:scale-110 hover:bg-[#9a0c24] active:scale-95"
                       >
                         <Minus className="h-4 w-4" />
                       </button>
-                      <span className="w-10 text-center font-medium">
+                      <span className="w-10 text-center font-medium text-black">
                         {item.quantity}
                       </span>
                       <button
                         onClick={() => onUpdateQuantity(item.product.id, 1)}
-                        className="rounded-lg bg-gray-200 p-1.5 transition-all duration-200 hover:scale-110 hover:bg-gray-300 active:scale-95"
+                        className="rounded-lg bg-[#C8102E] p-1.5 text-black transition-all duration-200 hover:scale-110 hover:bg-[#9a0c24] active:scale-95"
                       >
                         <Plus className="h-4 w-4" />
                       </button>
