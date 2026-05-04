@@ -137,11 +137,30 @@ export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const filteredProducts = useMemo(() => {
-    if (selectedCategory === "all") return mockProducts;
-    return mockProducts.filter((product) => product.category === selectedCategory);
-  }, [selectedCategory]);
+    const normalizedQuery = searchQuery.trim().toLowerCase();
+
+    return mockProducts.filter((product) => {
+      const matchesCategory =
+        selectedCategory === "all" || product.category === selectedCategory;
+
+      if (!matchesCategory) {
+        return false;
+      }
+
+      if (!normalizedQuery) {
+        return true;
+      }
+
+      return (
+        product.name.toLowerCase().includes(normalizedQuery) ||
+        product.description.toLowerCase().includes(normalizedQuery) ||
+        product.category.toLowerCase().includes(normalizedQuery)
+      );
+    });
+  }, [selectedCategory, searchQuery]);
 
   const cartItemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -182,6 +201,8 @@ export default function Home() {
       <Header
         cartItemCount={cartItemCount}
         onCartClick={() => setIsCartOpen(true)}
+        searchQuery={searchQuery}
+        onSearchChange={setSearchQuery}
       />
       <CategoryNav
         selectedCategory={selectedCategory}
