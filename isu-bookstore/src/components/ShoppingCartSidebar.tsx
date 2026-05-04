@@ -12,6 +12,7 @@ interface ShoppingCartSidebarProps {
   cartItems: CartItem[];
   onUpdateQuantity: (productId: string, delta: number) => void;
   onRemove: (productId: string) => void;
+  onCheckout?: () => void;
 }
 
 export function ShoppingCartSidebar({
@@ -20,6 +21,7 @@ export function ShoppingCartSidebar({
   cartItems,
   onUpdateQuantity,
   onRemove,
+  onCheckout,
 }: ShoppingCartSidebarProps) {
   const total = cartItems.reduce(
     (sum, item) => sum + item.product.price * item.quantity,
@@ -115,7 +117,11 @@ export function ShoppingCartSidebar({
                 ${total.toFixed(2)}
               </span>
             </div>
-            <button className="w-full rounded-lg bg-[#C8102E] py-4 text-lg font-medium text-white shadow-lg transition-all duration-200 hover:scale-105 hover:bg-[#9a0c24] hover:shadow-xl active:scale-95">
+            <button
+              type="button"
+              onClick={onCheckout}
+              className="w-full rounded-lg bg-[#C8102E] py-4 text-lg font-medium text-white shadow-lg transition-all duration-200 hover:scale-105 hover:bg-[#9a0c24] hover:shadow-xl active:scale-95"
+            >
               Proceed to Checkout
             </button>
             <p className="mt-3 text-center text-xs text-gray-500">

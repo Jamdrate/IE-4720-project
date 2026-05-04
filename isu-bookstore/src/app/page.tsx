@@ -1,14 +1,13 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { CategoryNav } from "../components/CategoryNav";
 import { Header } from "../components/Header";
 import { Hero } from "../components/Hero";
 import { ProductCard, type Product } from "../components/ProductCard";
-import {
-  ShoppingCartSidebar,
-  type CartItem,
-} from "../components/ShoppingCartSidebar";
+import { ShoppingCartSidebar } from "../components/ShoppingCartSidebar";
+import { usePersistedCart } from "../hooks/usePersistedCart";
 
 const mockProducts: Product[] = [
   {
@@ -134,8 +133,9 @@ const mockProducts: Product[] = [
 ];
 
 export default function Home() {
+  const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const { cartItems, setCartItems } = usePersistedCart();
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -285,6 +285,10 @@ export default function Home() {
         cartItems={cartItems}
         onUpdateQuantity={handleUpdateQuantity}
         onRemove={handleRemoveFromCart}
+        onCheckout={() => {
+          setIsCartOpen(false);
+          router.push("/checkout");
+        }}
       />
     </div>
   );
